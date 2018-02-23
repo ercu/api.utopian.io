@@ -276,7 +276,7 @@ conn.once('open', function ()
             let finalVote=calculateFinalVote(post,categories_pool);
 
             const achievements = post.achievements;
-            const jsonMetadata = { tags: ['utopian-io'], community: 'utopian', app: `utopian/1.0.0` };
+            const jsonMetadata = { tags: [process.env.UTOPIAN_TAG], community: process.env.UTIPIAN_COMMUNITY_NAME, app: config.app };
             let commentBody = '';
 
             commentBody = `### Hey @${post.author} I am @${botAccount}. I have just upvoted you!\n`;
@@ -297,8 +297,8 @@ conn.once('open', function ()
             commentBody += '#### Community-Driven Witness!\n';
 
             commentBody += `I am the first and only Steem Community-Driven Witness. <a href="https://discord.gg/zTrEMqB">Participate on Discord</a>. Lets GROW TOGETHER!\n`
-            commentBody += `- <a href="https://v2.steemconnect.com/sign/account-witness-vote?witness=utopian-io&approve=1">Vote for my Witness With SteemConnect</a>\n`
-            commentBody += `- <a href="https://v2.steemconnect.com/sign/account-witness-proxy?proxy=utopian-io&approve=1">Proxy vote to Utopian Witness with SteemConnect</a>\n`
+            commentBody += `- <a href="https://v2.steemconnect.com/sign/account-witness-vote?witness=${process.env.UTOPIAN_ACCOUNT}&approve=1">Vote for my Witness With SteemConnect</a>\n`
+            commentBody += `- <a href="https://v2.steemconnect.com/sign/account-witness-proxy?proxy=${process.env.UTOPIAN_ACCOUNT}&approve=1">Proxy vote to Utopian Witness with SteemConnect</a>\n`
             commentBody += `- Or vote/proxy on <a href="https://steemit.com/~witnesses">Steemit Witnesses</a>\n`
             commentBody += `\n[![mooncryption-utopian-witness-gif](https://steemitimages.com/DQmYPUuQRptAqNBCQRwQjKWAqWU3zJkL3RXVUtEKVury8up/mooncryption-s-utopian-io-witness-gif.gif)](https://steemit.com/~witnesses)\n`
             commentBody += '\n**Up-vote this comment to grow my power and help Open Source contributions like this one. Want to chat? Join me on Discord https://discord.gg/Pc8HG9x**';
@@ -307,7 +307,7 @@ conn.once('open', function ()
             finalVote=Math.round(finalVote*100)/100;
             total_after_correction+=finalVote;
             console.log('--------------------------------------\n');
-            console.log('https://utopian.io/utopian-io/@'+post.author+'/'+post.permlink);
+            console.log(`https://${process.env.UTOPIAN_DOMAIN}/${process.env.UTOPIAN_TAG}/@`+post.author+'/'+post.permlink);
             console.log('VOTE:' + finalVote + '(total:'+Math.round(total_after_correction)+')');
             console.log('CATEGORY', post.category,'\n');
             console.log(commentBody);

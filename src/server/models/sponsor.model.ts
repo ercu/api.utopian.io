@@ -57,7 +57,7 @@ SponsorSchema.statics = {
         $gt: 0
       },
       account: {
-        $ne: 'utopian-io'
+        $ne: process.env.UTOPIAN_ACCOUNT
       },
     })
       .sort({ vesting_shares: -1 })
@@ -73,7 +73,7 @@ SponsorSchema.statics = {
         $gt: 0
       },
       account: {
-        $ne: 'utopian-io'
+        $ne: process.env.UTOPIAN_ACCOUNT
       },
       opted_out: {
         $ne: true

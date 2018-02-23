@@ -1,7 +1,7 @@
 import Moderator from '../models/moderator.model';
 
 function create(req,res,next) {
-  var ifReferrer = "utopian-io";
+  var ifReferrer = process.env.UTOPIAN_ACCOUNT;
   if (req.body.referrer) {
     ifReferrer = req.body.referrer;
   }

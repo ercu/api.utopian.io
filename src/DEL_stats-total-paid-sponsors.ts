@@ -55,7 +55,7 @@ conn.once('open', function ()
                                                         const authorPayouts = payoutDetails.authorPayouts || 0;
                                                         let payoutSponsor = 0;
                                                         if(sponsor.opted_out) {
-                                                            const beneficiary = R.find(R.propEq('account', 'utopian-io'))(post.beneficiaries) || {weight: 0};
+                                                            const beneficiary = R.find(R.propEq('account', process.env.UTOPIAN_ACCOUNT))(post.beneficiaries) || {weight: 0};
                                                             const beneficiaryWeight = parseInt(beneficiary.weight);
                                                             const assignedUtopianWeight = Math.round((sponsorsDedicatedWeight * sponsor.percentage_total_vesting_shares ) / 100);
                                                             const calcWeight = assignedUtopianWeight >= beneficiaryWeight ? beneficiaryWeight : assignedUtopianWeight;

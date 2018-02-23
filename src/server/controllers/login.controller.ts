@@ -33,7 +33,7 @@ async function createUser(account: string) {
           details.confirmed = true;
           details.connectedToSteem = true;
           if (acct.witness_votes) {
-            details.votingForWitness = (acct.witness_votes.indexOf('utopian-io') !== -1);
+            details.votingForWitness = (acct.witness_votes.indexOf(process.env.UTIPIAN_ACCOUNT) !== -1);
           }
         }
       }

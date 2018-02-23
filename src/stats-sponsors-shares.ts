@@ -31,7 +31,7 @@ conn.once('open', function ()
                         sponsors.forEach((sponsor, sponsorsIndex) => {
                             setTimeout(function(){
                                 steemApi.getVestingDelegations(sponsor.account, -1, 1000, function(err, delegations) {
-                                    const isDelegating = R.find(R.propEq('delegatee', 'utopian-io'))(delegations);
+                                    const isDelegating = R.find(R.propEq('delegatee', process.env.UTOPIAN_ACCOUNT))(delegations);
                                     let currentVestingShares = isDelegating ? parseInt(isDelegating.vesting_shares) : 0;
                                     let delegationDate = isDelegating ? isDelegating.min_delegation_time : new Date().toISOString();
 

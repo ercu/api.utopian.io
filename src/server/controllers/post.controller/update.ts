@@ -60,7 +60,7 @@ export async function validateNewPost(post: any,
                                       checkModerated = true): Promise<boolean> {
   // make sure post is not a comment and it has the correct first category
   if (post.parent_author !== '') return false;
-  if (!(post.parent_permlink === 'utopian-io'
+  if (!(post.parent_permlink === process.env.UTOPIAN_TAG
         || (isDev() && post.parent_permlink === 'test-category'))) return false;
 
   const user = await User.get(post.author);
@@ -71,7 +71,7 @@ export async function validateNewPost(post: any,
   if (typeof(meta) === 'string') {
     meta = JSON.parse(meta);
   }
-  if (meta.app !== 'utopian/1.0.0') return false;
+  if (meta.app !== config.app) return false;
   if (meta.community !== 'utopian') return false;
   if (!validTypes.includes(meta.type)) return false;
 

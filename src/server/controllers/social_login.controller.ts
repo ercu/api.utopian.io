@@ -144,9 +144,9 @@ async function email_request(req, res, next) {
 
     found_user.email = req.body.email
     await found_user.save()
-    let confirmation_link = process.env.NODE_ENV === 'production' ? `https://signup.utopian.io` : `http://localhost:${process.env.REGISTRATION_FRONTEND_PORT}`
+    let confirmation_link = process.env.NODE_ENV === 'production' ? `https://signup.${process.env.UTOPIAN_DOMAIN}` : `http://localhost:${process.env.REGISTRATION_FRONTEND_PORT}`
     let transporter = nodemailer.createTransport({ host: 'smtp.gmail.com', port: 465, secure: true, auth: { user: process.env.GOOGLE_MAIL_ACCOUNT, pass: process.env.GOOGLE_MAIL_PASSWORD } })
-    let mailOptions = { from: process.env.GOOGLE_MAIL_ACCOUNT, to: req.body.email, subject: 'Utopian Email Confirmation', text: 'Hey there,\n\n' + `Please confirm your email for Utopian.io by clicking on this link: ${confirmation_link}/email/confirm/${token.token}` + '.\n' }
+    let mailOptions = { from: process.env.GOOGLE_MAIL_ACCOUNT, to: req.body.email, subject: 'Utopian Email Confirmation', text: 'Hey there,\n\n' + `Please confirm your email for ${process.env.UTOPIAN_SITE_NAME} by clicking on this link: ${confirmation_link}/email/confirm/${token.token}` + '.\n' }
     await transporter.sendMail(mailOptions)
     res.status(200).send('A verification email has been sent to ' + found_user.email + '.')
   } catch (error) {
@@ -247,7 +247,7 @@ async function send_sms(phone_number, random_code) {
     let response
     if(process.env.REG_TESTNET === 'false') {
       response = await request.post('https://rest.nexmo.com/sms/json')
-      .query({ to: phone_number, from: 'UTOPIAN.IO', text: `Your Code: ${random_code}` , api_key: process.env.NEXMO_API_KEY, api_secret: process.env.NEXMO_API_SECRET })
+      .query({ to: phone_number, from: process.env.UTOPIAN_SITE_NAME.toUpperCase(), text: `Your Code: ${random_code}` , api_key: process.env.NEXMO_API_KEY, api_secret: process.env.NEXMO_API_SECRET })
     }
     return response
   } catch (error) {

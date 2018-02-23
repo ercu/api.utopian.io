@@ -25,6 +25,16 @@ const envVarsSchema = Joi.object({
   UTOPIAN_GITHUB_CLIENT_ID: Joi.string().required(),
   UTOPIAN_GITHUB_REDIRECT_URL: Joi.string().required(),
   UTOPIAN_STEEMCONNECT_SECRET: Joi.string().required(),
+  UTOPIAN_TAG: Joi.string().default('utopian-io'),
+  UTOPIAN_DOMAIN: Joi.string().default('utopian.io'),
+  UTOPIAN_SITE_NAME: Joi.string().default('Utopian.io'),
+  UTOPIAN_ACCOUNT: Joi.string().default('Utopian-io'),
+  UTOPIAN_COMMUNITY_NAME: Joi.string().default('utopian'),
+  UTOPIAN_METADATA_APP_NAME: Joi.string().default('utopian'),
+  UTOPIAN_METADATA_APP_VERSION: Joi.string().default('1.0.0'),
+
+
+
 }).unknown()
     .required();
 
@@ -53,6 +63,7 @@ interface Config {
   mongo: string;
   server: Server;
   credentials: Credentials;
+  app: string;
 }
 
 const config: Config = {
@@ -70,7 +81,8 @@ const config: Config = {
     port: envVars.SERVER_PORT,
     cert: envVars.SERVER_SSL_CERT,
     key: envVars.SERVER_SSL_KEY
-  }
+  },
+  app: envVars.UTOPIAN_METADATA_APP_NAME + '/' + envVars.UTOPIAN_METADATA_APP_VERSION,
 };
 
 export default config;

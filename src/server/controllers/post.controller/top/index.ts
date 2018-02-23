@@ -104,7 +104,7 @@ export async function top(req, res, next) {
           continue;
         }
         post.rewards = postRewards(post);
-        post.utopian_url = `https://utopian.io${post.url}`;
+        post.utopian_url = `https://${process.env.UTOPIAN_DOMAIN}${post.url}`;
       }
       if (params.sort_by === TopSortBy.CONTRIBUTIONS) {
         data.sort((a: any, b: any) => b.active_votes.length - a.active_votes.length);
@@ -120,7 +120,7 @@ export async function top(req, res, next) {
       for (const repo of data) {
         const gh = await githubRepo(repo['_id']);
         repo['github'] = await githubRepo(repo['_id']);
-        repo['project_url'] = `https://utopian.io/project/${repo['_id']}/github/${gh['id']}/all`;
+        repo['project_url'] = `https://${process.env.UTOPIAN_DOMAIN}/project/${repo['_id']}/github/${gh['id']}/all`;
       }
     }
 
