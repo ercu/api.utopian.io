@@ -247,7 +247,7 @@ async function send_sms(phone_number, random_code) {
     let response
     if(process.env.REG_TESTNET === 'false') {
       response = await request.post('https://rest.nexmo.com/sms/json')
-      .query({ to: phone_number, from: process.env.UTOPIAN_SITE_NAME.toUpperCase(), text: `Your Code: ${random_code}` , api_key: process.env.NEXMO_API_KEY, api_secret: process.env.NEXMO_API_SECRET })
+      .query({ to: phone_number, from: process.env.UTOPIAN_SITE_NAME, text: `Your Code: ${random_code}` , api_key: process.env.NEXMO_API_KEY, api_secret: process.env.NEXMO_API_SECRET })
     }
     return response
   } catch (error) {
